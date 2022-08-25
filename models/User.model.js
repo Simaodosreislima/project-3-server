@@ -28,6 +28,9 @@ const userSchema = new Schema(
       type: String,
       /*    default: "add path to cloudinary(?)" */
     },
+    description: {
+      type: String
+    },
     profileVideos: [String],
     spotifyAccessToken: { type: String },
     matchReceived: [{ type: Schema.Types.ObjectId, ref: "User" }],

@@ -9,7 +9,7 @@ const MatchSchema = new Schema(
     userTwo: {
       type: Schema.Types.ObjectId, ref: "User"
     },
-    messages: [{ type: Schema.Types, ObjectId, ref: "Messages" }]
+    messages: [{ type: Schema.Types.ObjectId, ref: "Messages" }]
   },
   {
     timestamps: true,
