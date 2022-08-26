@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const User = require("../models/User.model");
-const Match = require("../models/Match.model");
+const Conversation = require("../models/Conversation.model");
 
 //Get all users
 router.get("/user", (req, res, next) => {
+  console.log(req.payload)
   User.find()
-    /*  .populate("matches") */
     .then((user) => res.status(200).json(user))
     .catch((err) => res.json(err))
 })
@@ -13,7 +13,7 @@ router.get("/user", (req, res, next) => {
 router.get("/user/:userId", (req, res, next) => {
   const { userId } = req.params;
   User.findById(userId)
-    /*  .populate("tasks") */
+
     .then(user => res.status(200).json(user))
     .catch((err) => res.json(err))
 })

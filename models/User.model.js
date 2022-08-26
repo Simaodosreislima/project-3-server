@@ -35,6 +35,8 @@ const userSchema = new Schema(
     spotifyAccessToken: { type: String },
     matchReceived: [{ type: Schema.Types.ObjectId, ref: "User" }],
     matchSent: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    matches: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    conversations: [{ type: Schema.Types.ObjectId, ref: "User" }]
   },
   {
     timestamps: true,

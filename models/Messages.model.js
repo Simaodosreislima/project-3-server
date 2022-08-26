@@ -3,8 +3,8 @@ const { Schema, model } = mongoose;
 
 const MessagesSchema = newSchema(
   {
-    text: { type: String },
-    sender: { type: Schema.Types.ObjectId, ref: "User" }
+    content: { type: String },
+    author: { type: Schema.Types.ObjectId, ref: "User" }
   },
   {
     timestamps: true,
