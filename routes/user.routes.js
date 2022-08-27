@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User.model");
 const Conversation = require("../models/Conversation.model");
-
+const fileUploader = require("../config/cloudinary.config")
 //Get all users
 router.get("/user", (req, res, next) => {
   console.log(req.payload)
@@ -13,7 +13,7 @@ router.get("/user", (req, res, next) => {
 router.get("/user/:userId", (req, res, next) => {
   const { userId } = req.params;
   User.findById(userId)
-
+    .populate("matchSent matchReceived matches conversation")
     .then(user => res.status(200).json(user))
     .catch((err) => res.json(err))
 })

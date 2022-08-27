@@ -22,6 +22,12 @@ app.use("/api", allRoutes);
 const userRouter = require("./routes/user.routes");
 app.use("/api", isAuthenticated, userRouter)
 
+const matchRouter = require("./routes/match.routes");
+app.use("/api", isAuthenticated, matchRouter)
+
+const messageRouter = require("./routes/message.routes");
+app.use("/api", isAuthenticated, messageRouter);
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 

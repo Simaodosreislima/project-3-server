@@ -36,7 +36,7 @@ const userSchema = new Schema(
     matchReceived: [{ type: Schema.Types.ObjectId, ref: "User" }],
     matchSent: [{ type: Schema.Types.ObjectId, ref: "User" }],
     matches: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    conversations: [{ type: Schema.Types.ObjectId, ref: "User" }]
+    conversation: [{ type: Schema.Types.ObjectId, ref: "User" }]
   },
   {
     timestamps: true,
