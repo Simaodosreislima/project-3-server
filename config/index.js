@@ -39,6 +39,7 @@ module.exports = (app) => {
     })
   );
 
+
   // In development environment the app logs
   app.use(logger("dev"));
   // To have access to `body` property in the request

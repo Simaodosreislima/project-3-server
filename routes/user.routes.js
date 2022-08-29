@@ -4,7 +4,6 @@ const Conversation = require("../models/Conversation.model");
 const fileUploader = require("../config/cloudinary.config")
 //Get all users
 router.get("/user", (req, res, next) => {
-  console.log(req.payload)
   User.find()
     .then((user) => res.status(200).json(user))
     .catch((err) => res.json(err))
@@ -30,9 +29,9 @@ router.put("/user/:userId", (req, res, next) => {
 router.delete("/user/:userId", (req, res, next) => {
   const { userId } = req.params;
   User.findByIdAndDelete(userId)
-    .then(() => res.status(200).json({ message: `The project with id ${userId} was successfully deleted` })
+    .then(() => res.status(200).json({ message: `The user with id ${userId} was successfully deleted` })
     )
-    .catch((err) => res.json)
+    .catch((err) => res.json({ errorMessage: "Error deleting User" }))
 })
 
 

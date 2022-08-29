@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User.model");
 
-router.post("/match/:id", async (req, res, next) => {
+router.put("/match/:id", async (req, res, next) => {
 
 
   const { id } = req.params
@@ -15,8 +15,6 @@ router.post("/match/:id", async (req, res, next) => {
     }, { new: true });
 
     const otherUser = await User.findById(id)
-
-
 
     if (otherUser.matchReceived.includes(userId)) {
       await User.findByIdAndUpdate(otherUser._id, {
@@ -43,7 +41,7 @@ router.post("/match/:id", async (req, res, next) => {
       }, { new: true })
     }
   } catch (error) {
-    res.json(error)
+    res.status(400).json({ errorMessage: "Error matching with User" });
   }
 })
 

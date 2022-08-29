@@ -17,11 +17,6 @@ router.get('/verify', isAuthenticated, (req, res) => {
   res.status(200).json(req.payload);
 });
 
-router.get("/verify", isAuthenticated, (req, res) => {
-  console.log("the token: (or not)", req.payload)
-  res.status(200).json(req.payload)
-});
-
 router.post('/signup', (req, res) => {
   const { email, password, username, firstName, lastName } = req.body;
 
