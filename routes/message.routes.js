@@ -16,12 +16,12 @@ router.post("/chat/create/:otherUserId", (req, res, next) => {
     .then((foundConversation) => {
       if (foundConversation === null) {
         Conversation.create({ participants: [otherUserId, id] })
-          /* .then((conversation) => {
-            return User.findByIdAndUpdate(otherUserId, { $push: { conversation: conversation._id, } }) <--- here's the problem
-            if I take it out a conversation is stored in MongoDb in the conversations folder. As soon as I add this, stops working and i can't 
-            update the conversation array in the user
+          .then((conversation) => {
+            return User.findByIdAndUpdate(otherUserId, { $push: { conversation: conversation._id } }) /* <---- Here is the problem.
+            I'm only being able to push the conversation into the otherUser, leaving my user out of the question. Tried to figure out how to update
+            both otherUserd and id but every time the route stop working on postman. */
+          })
 
-          }) */
           .then((conversation) => res.status(200).json(conversation))
           .catch(err => res.json(err));
       }

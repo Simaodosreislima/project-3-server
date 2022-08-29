@@ -13,7 +13,6 @@ router.get("/user", (req, res, next) => {
 router.get("/user/:userId", (req, res, next) => {
   const { userId } = req.params;
   User.findById(userId)
-    .populate("matchSent matchReceived matches conversation")
     .then(user => res.status(200).json(user))
     .catch((err) => res.json(err))
 })
@@ -23,6 +22,7 @@ router.put("/user/:userId", (req, res, next) => {
   const { profileVideos, description, profileImg, firstName, lastName } = req.body;
 
   User.findByIdAndUpdate(userId, { profileVideos, description, profileImg, firstName, lastName }, { new: true })
+    .populate("matchSent matchReceived matches conversation")
     .then((user) => res.status(200).json(user))
     .catch((err) => res.json(err))
 })

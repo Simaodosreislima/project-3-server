@@ -3,6 +3,7 @@ const User = require("../models/User.model");
 
 router.post("/match/:id", async (req, res, next) => {
 
+
   const { id } = req.params
   const userId = req.payload._id
 
@@ -25,7 +26,7 @@ router.post("/match/:id", async (req, res, next) => {
         $push: {
           matches: userId
         }
-      }/* , { new: true } */)
+      }, { new: true })
       await User.findByIdAndUpdate(userId, {
         $pull: {
           matchReceived: otherUser._id
@@ -33,13 +34,13 @@ router.post("/match/:id", async (req, res, next) => {
         $push: {
           matches: otherUser._id
         }
-      }/* , { new: true } */)
+      }, { new: true })
     } else {
       await User.findByIdAndUpdate(id, {
         $push: {
           matchReceived: userId
         }
-      }/* , { new: true } */)
+      }, { new: true })
     }
   } catch (error) {
     res.json(error)

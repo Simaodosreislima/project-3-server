@@ -17,6 +17,11 @@ router.get('/verify', isAuthenticated, (req, res) => {
   res.status(200).json(req.payload);
 });
 
+router.get("/verify", isAuthenticated, (req, res) => {
+  console.log("the token: (or not)", req.payload)
+  res.status(200).json(req.payload)
+});
+
 router.post('/signup', (req, res) => {
   const { email, password, username, firstName, lastName } = req.body;
 
@@ -60,7 +65,7 @@ router.post('/signup', (req, res) => {
         }
         if (error.code === 11000) {
           return res.status(400).json({
-            errorMessage: 'Email need to be unique. The email you chose is already in use.',
+            errorMessage: 'Email needs to be unique. The email you chose is already in use.',
           });
         }
         return res.status(500).json({ errorMessage: error.message });
@@ -98,10 +103,10 @@ router.post('/login', (req, res, next) => {
         }
 
         //DEstructuring what we want from the user
-        const { _id, username } = user;
+        const { _id, email, username, firstName, lastName } = user;
 
         //Creating the payload with the properties we want to save on the token
-        const payload = { _id, username };
+        const payload = { _id, email, username, firstName, lastName };
 
         //Creating the token
 
