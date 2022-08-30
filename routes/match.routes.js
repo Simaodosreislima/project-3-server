@@ -7,30 +7,37 @@ router.put("/match/:id", async (req, res, next) => {
   const { id } = req.params
   const userId = req.payload._id
 
+  console.log(id)
   try {
-    await User.findByIdAndUpdate(userId, {
+    let currentUser = await User.findByIdAndUpdate(userId, {
       $push: {
         matchSent: id
       }
     }, { new: true });
 
-    const otherUser = await User.findById(id)
 
-    if (otherUser.matchReceived.includes(userId)) {
-      await User.findByIdAndUpdate(otherUser._id, {
+    if (currentUser.matchReceived.includes(id)) {
+      await User.findByIdAndUpdate(id, {
         $pull: {
           matchReceived: userId
+        },
+        $pull: {
+          matchSent: userId
         },
         $push: {
           matches: userId
         }
       }, { new: true })
+
       await User.findByIdAndUpdate(userId, {
         $pull: {
-          matchReceived: otherUser._id
+          matchReceived: id
+        },
+        $pull: {
+          matchSent: id
         },
         $push: {
-          matches: otherUser._id
+          matches: id
         }
       }, { new: true })
     } else {
@@ -40,6 +47,8 @@ router.put("/match/:id", async (req, res, next) => {
         }
       }, { new: true })
     }
+
+    res.status(200).json({ currentUser })
   } catch (error) {
     res.status(400).json({ errorMessage: "Error matching with User" });
   }
