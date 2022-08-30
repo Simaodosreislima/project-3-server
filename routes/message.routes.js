@@ -26,19 +26,6 @@ router.post("/chat/create/:otherUserId", async (req, res, next) => {
     res.status(400).json({ errorMessage: "Error creating conversation" })
   }
 
-  /* Conversation.findOne({ participants: { $all: [otherUserId, id] } })
-    .then((foundConversation) => {
-      if (foundConversation === null) {
-        Conversation.create({ participants: [otherUserId, id] })
-          .then((conversation) => {
-            return User.findByIdAndUpdate(otherUserId, { $push: { conversation: conversation._id } }) 
-          })
-
-          .then((conversation) => res.status(200).json(conversation))
-          .catch(err => res.json(err));
-      }
-    }); */
-
 
 
 })
