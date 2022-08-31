@@ -30,6 +30,21 @@ router.post("/chat/create/:otherUserId", async (req, res, next) => {
 
 })
 /* enter the chat already created  */   /* WORKING */
+router.get('/chats', (req, res, next) => {
+  const userId = req.payload._id
+  Conversation.find({ participants: userId })
+    .populate('participants messages')
+    .populate({
+      path: 'messages',
+      populate: {
+        path: 'author',
+        model: 'User',
+      },
+    })
+    .then((chat) => res.status(200).json(chat))
+    .catch((err) => res.json(err))
+})
+
 router.get('/chat/:chatId', (req, res, next) => {
   const { chatId } = req.params;
   Conversation.findById(chatId)

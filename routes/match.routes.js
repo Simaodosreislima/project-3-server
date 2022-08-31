@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/User.model");
+const Conversation = require('../models/Conversation.model')
 
 router.put("/match/:id", async (req, res, next) => {
 
@@ -17,29 +18,34 @@ router.put("/match/:id", async (req, res, next) => {
 
 
     if (currentUser.matchReceived.includes(id)) {
+      //creates the conversation
+      let newConversation = await Conversation.create({ participants: [id, userId] })
+
       await User.findByIdAndUpdate(id, {
         $pull: {
-          matchReceived: userId
-        },
-        $pull: {
+          matchReceived: userId,
           matchSent: userId
         },
         $push: {
-          matches: userId
-        }
+          matches: userId,
+          conversation: newConversation._id
+        },
       }, { new: true })
 
       await User.findByIdAndUpdate(userId, {
         $pull: {
-          matchReceived: id
-        },
-        $pull: {
+          matchReceived: id,
           matchSent: id
         },
+
         $push: {
-          matches: id
+          matches: id,
+          conversation: newConversation._id
         }
       }, { new: true })
+
+
+
     } else {
       await User.findByIdAndUpdate(id, {
         $push: {
