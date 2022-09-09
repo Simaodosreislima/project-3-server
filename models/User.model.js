@@ -31,7 +31,10 @@ const userSchema = new Schema(
     description: {
       type: String
     },
-    profileVideos: [String],
+    profileVideos: {
+      type: [String],
+      default: "https://res.cloudinary.com/djcz0uyq9/video/upload/v1662037525/band-mate-project/video-name_ya6w1h.mp4",
+    },
     spotifyAccessToken: { type: String },
     matchReceived: [{ type: Schema.Types.ObjectId, ref: "User" }],
     matchSent: [{ type: Schema.Types.ObjectId, ref: "User" }],
